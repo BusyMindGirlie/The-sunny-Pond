@@ -31,7 +31,7 @@
 
     h1 {
       margin: 0 0 8px 0;
-      font-size: 32px;
+      font-size: 28px;
       text-align: center;
     }
 
@@ -51,36 +51,48 @@
     .menu-button {
       display: block;
       width: 100%;
-      padding: 16px 18px;
+      padding: 16px;
       margin-bottom: 12px;
       border: none;
       border-radius: 18px;
       background: #A8BFA3;
       color: white;
-      font-size: 17px;
+      font-size: 16px;
       cursor: pointer;
     }
 
-    .menu-button:last-child {
-      margin-bottom: 0;
+    .back-button {
+      margin-bottom: 15px;
+      background: #ddd;
+      color: #333;
+    }
+
+    textarea {
+      width: 100%;
+      border-radius: 10px;
+      padding: 10px;
+      border: 1px solid #ddd;
     }
 
     .footer {
       text-align: center;
       color: #777;
       font-size: 14px;
-      margin-top: 12px;
     }
   </style>
 </head>
+
 <body>
-  <div class="app">
+<div class="app">
+
+  <!-- HOME SCREEN -->
+  <div id="home">
     <div class="card">
       <h1>The Sunny Pond 🐸</h1>
       <p class="subtitle">a soft, safe little place to land</p>
       <p class="safe">you’re safe here, you can take this slowly</p>
 
-      <button class="menu-button">🌿 Reset</button>
+      <button class="menu-button" onclick="showScreen('reset')">🌿 Reset</button>
       <button class="menu-button">✨ Dopamine</button>
       <button class="menu-button">📖 Journal</button>
       <button class="menu-button">🛌 Low Energy</button>
@@ -88,5 +100,40 @@
 
     <p class="footer">small still counts ☀️</p>
   </div>
+
+  <!-- RESET SCREEN -->
+  <div id="reset" style="display:none;">
+    <button class="menu-button back-button" onclick="showScreen('home')">← Back</button>
+
+    <div class="card">
+      <h1>Reset 🌿</h1>
+      <p>How are you feeling today?</p>
+
+      <button class="menu-button" onclick="setEnergy('Low energy')">Low energy</button>
+      <button class="menu-button" onclick="setEnergy('Foggy')">Foggy</button>
+      <button class="menu-button" onclick="setEnergy('Okay')">Okay</button>
+    </div>
+
+    <div class="card">
+      <p>What did you do for yourself today?</p>
+      <textarea id="selfcare"></textarea>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function showScreen(screen) {
+  document.getElementById("home").style.display = "none";
+  document.getElementById("reset").style.display = "none";
+
+  document.getElementById(screen).style.display = "block";
+}
+
+function setEnergy(e) {
+  alert("You selected: " + e);
+}
+</script>
+
 </body>
 </html>
