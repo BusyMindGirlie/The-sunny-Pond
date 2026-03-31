@@ -31,7 +31,7 @@
 
     h1 {
       margin: 0 0 8px 0;
-      font-size: 28px;
+      font-size: 26px;
       text-align: center;
     }
 
@@ -51,28 +51,23 @@
     .menu-button {
       display: block;
       width: 100%;
-      padding: 16px;
-      margin-bottom: 12px;
+      padding: 14px;
+      margin-bottom: 10px;
       border: none;
       border-radius: 18px;
       background: #A8BFA3;
       color: white;
-      font-size: 16px;
+      font-size: 15px;
       cursor: pointer;
-      transition: 0.2s ease;
     }
 
-    .menu-button:hover {
-      opacity: 0.95;
+    .menu-button.selected {
+      background: #7F9C78;
     }
 
     .back-button {
       background: #ddd;
       color: #333;
-    }
-
-    .energy-button.selected {
-      background: #7F9C78;
     }
 
     textarea {
@@ -81,37 +76,19 @@
       padding: 10px;
       border: 1px solid #ddd;
       margin-top: 10px;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-      font-size: 15px;
+    }
+
+    .entry {
+      background: #FAF8F6;
+      padding: 12px;
+      border-radius: 12px;
+      margin-top: 10px;
     }
 
     .footer {
       text-align: center;
       color: #777;
       font-size: 14px;
-    }
-
-    .entry {
-      background: #FAF8F6;
-      border-radius: 14px;
-      padding: 14px;
-      margin-top: 12px;
-      border: 1px solid #eee;
-    }
-
-    .entry-date {
-      font-weight: bold;
-      margin-bottom: 6px;
-    }
-
-    .entry-energy {
-      color: #666;
-      margin-bottom: 6px;
-    }
-
-    .save-button {
-      background: #A8BFA3;
     }
   </style>
 </head>
@@ -127,7 +104,7 @@
       <p class="safe">you’re safe here, you can take this slowly</p>
 
       <button class="menu-button" onclick="showScreen('reset')">🌿 Reset</button>
-      <button class="menu-button">✨ Dopamine</button>
+      <button class="menu-button" onclick="showScreen('dopamine')">✨ Dopamine</button>
       <button class="menu-button">📖 Journal</button>
       <button class="menu-button">🛌 Low Energy</button>
     </div>
@@ -141,22 +118,38 @@
 
     <div class="card">
       <h1>Reset 🌿</h1>
-      <p>How are you feeling today?</p>
 
-      <button class="menu-button energy-button" id="energy-low" onclick="setEnergy('Low energy', 'energy-low')">Low energy</button>
-      <button class="menu-button energy-button" id="energy-foggy" onclick="setEnergy('Foggy', 'energy-foggy')">Foggy</button>
-      <button class="menu-button energy-button" id="energy-okay" onclick="setEnergy('Okay', 'energy-okay')">Okay</button>
+      <button class="menu-button" onclick="setEnergy('Low energy')">Low energy</button>
+      <button class="menu-button" onclick="setEnergy('Okay')">Okay</button>
+      <button class="menu-button" onclick="setEnergy('High energy')">High energy</button>
     </div>
 
     <div class="card">
-      <p>What did you do for yourself today?</p>
-      <textarea id="selfcare" rows="4" placeholder="Even something small counts…"></textarea>
-      <button class="menu-button save-button" onclick="saveEntry()">Save today 🐸</button>
+      <textarea id="selfcare" placeholder="what did you do for yourself?"></textarea>
+      <button class="menu-button" onclick="saveEntry()">Save today 🐸</button>
     </div>
 
     <div class="card">
-      <p><strong>Previous entries</strong></p>
       <div id="entries"></div>
+    </div>
+  </div>
+
+  <!-- DOPAMINE -->
+  <div id="dopamine" style="display:none;">
+    <button class="menu-button back-button" onclick="showScreen('home')">← Back</button>
+
+    <div class="card">
+      <h1>What do you need right now?</h1>
+
+      <button class="menu-button" onclick="showSuggestions('overwhelmed', this)">🌫️ I feel overwhelmed</button>
+      <button class="menu-button" onclick="showSuggestions('low', this)">💤 I feel low energy</button>
+      <button class="menu-button" onclick="showSuggestions('restless', this)">⚡ I feel restless</button>
+      <button class="menu-button" onclick="showSuggestions('heavy', this)">💔 I feel heavy</button>
+      <button class="menu-button" onclick="showSuggestions('reset', this)">🌿 I just need a reset</button>
+    </div>
+
+    <div class="card">
+      <div id="suggestions"></div>
     </div>
   </div>
 
@@ -168,26 +161,17 @@ let selectedEnergy = "";
 function showScreen(screen) {
   document.getElementById("home").style.display = "none";
   document.getElementById("reset").style.display = "none";
+  document.getElementById("dopamine").style.display = "none";
 
   document.getElementById(screen).style.display = "block";
 }
 
-function setEnergy(energy, buttonId) {
-  selectedEnergy = energy;
-
-  const buttons = document.querySelectorAll(".energy-button");
-  buttons.forEach(button => button.classList.remove("selected"));
-
-  document.getElementById(buttonId).classList.add("selected");
+function setEnergy(e) {
+  selectedEnergy = e;
 }
 
 function saveEntry() {
-  const text = document.getElementById("selfcare").value.trim();
-
-  if (!selectedEnergy && !text) {
-    alert("Add a feeling or a little note first 💛");
-    return;
-  }
+  const text = document.getElementById("selfcare").value;
 
   const entry = {
     date: new Date().toLocaleDateString(),
@@ -195,39 +179,61 @@ function saveEntry() {
     text: text
   };
 
-  const entries = JSON.parse(localStorage.getItem("sunnyPondEntries") || "[]");
+  const entries = JSON.parse(localStorage.getItem("pond") || "[]");
   entries.unshift(entry);
-  localStorage.setItem("sunnyPondEntries", JSON.stringify(entries));
+  localStorage.setItem("pond", JSON.stringify(entries));
 
   document.getElementById("selfcare").value = "";
-  selectedEnergy = "";
-
-  const buttons = document.querySelectorAll(".energy-button");
-  buttons.forEach(button => button.classList.remove("selected"));
-
   displayEntries();
 }
 
 function displayEntries() {
-  const entries = JSON.parse(localStorage.getItem("sunnyPondEntries") || "[]");
+  const entries = JSON.parse(localStorage.getItem("pond") || "[]");
   const container = document.getElementById("entries");
   container.innerHTML = "";
 
-  if (entries.length === 0) {
-    container.innerHTML = "<p style='color:#777;'>No entries yet 🌿</p>";
-    return;
-  }
-
-  entries.forEach(entry => {
+  entries.forEach(e => {
     const div = document.createElement("div");
     div.className = "entry";
+    div.innerHTML = "<b>" + e.date + "</b><br>" + e.energy + "<br>" + e.text;
+    container.appendChild(div);
+  });
+}
 
-    div.innerHTML = `
-      <div class="entry-date">${entry.date}</div>
-      <div class="entry-energy">${entry.energy ? "Feeling: " + entry.energy : ""}</div>
-      <div>${entry.text ? entry.text : ""}</div>
-    `;
+function showSuggestions(type, button) {
+  const container = document.getElementById("suggestions");
 
+  const buttons = button.parentElement.querySelectorAll(".menu-button");
+  buttons.forEach(b => b.classList.remove("selected"));
+  button.classList.add("selected");
+
+  let list = [];
+
+  if (type === "overwhelmed") {
+    list = ["🤍 breathe slowly", "✍️ brain dump", "🛏️ lie down", "🐸 you’re safe"];
+  }
+
+  if (type === "low") {
+    list = ["🫖 warm drink", "🪟 open window", "🛏️ rest", "🎧 soft music"];
+  }
+
+  if (type === "restless") {
+    list = ["🚶‍♀️ short walk", "🎶 upbeat song", "🧍‍♀️ stretch", "🌿 step outside"];
+  }
+
+  if (type === "heavy") {
+    list = ["🫂 comfort yourself", "🎮 gentle game", "🤍 sit with it", "🛏️ lie down"];
+  }
+
+  if (type === "reset") {
+    list = ["🚿 warm shower", "☀️ sunlight", "🧘‍♀️ stretch", "🔥 heat pack"];
+  }
+
+  container.innerHTML = "";
+  list.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "entry";
+    div.innerText = item;
     container.appendChild(div);
   });
 }
