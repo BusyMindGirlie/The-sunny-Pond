@@ -1,32 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>The Sunny Pond</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
 
   <style>
     :root {
-      --green-soft: #7FAF8E;
-      --blue-muted: #7FA7B5;
-      --brown-green: #8C7A6B;
-      --brain: #A8A39B;
-      --bg: #F4F1EC;
-      --card: #FCFBF8;
-      --text: #5E5147;
-      --muted: #7A726B;
-      --line: #E6E0D8;
-      --back: #D9D4CD;
-      --selected: #E6EFEA;
+      --green-soft: #7faf8e;
+      --blue-muted: #7fa7b5;
+      --brown-green: #8c7a6b;
+      --brain: #a8a39b;
+      --earthy: #b89c7a;
+      --bg: #f4f1ec;
+      --card: #fcfbf8;
+      --text: #5e5147;
+      --muted: #7a726b;
+      --line: #e6e0d8;
+      --back: #d9d4cd;
+      --selected: #e6efea;
+    }
+
+    * {
+      box-sizing: border-box;
     }
 
     body {
       margin: 0;
-      font-family: 'Quicksand', sans-serif;
+      font-family: "Quicksand", sans-serif;
       background: var(--bg);
       color: var(--text);
       display: flex;
@@ -69,14 +77,14 @@
 
     .subtitle {
       text-align: center;
-      color: #6F655D;
+      color: #6f655d;
       margin-bottom: 8px;
       font-size: 15px;
     }
 
     .safe {
       text-align: center;
-      color: #6F655D;
+      color: #6f655d;
       font-size: 15px;
       margin-bottom: 22px;
       line-height: 1.5;
@@ -104,7 +112,7 @@
       border-radius: 18px;
       color: white;
       font-size: 15px;
-      font-family: 'Quicksand', sans-serif;
+      font-family: "Quicksand", sans-serif;
       font-weight: 600;
       cursor: pointer;
       transition: 0.2s ease;
@@ -130,6 +138,10 @@
       background: var(--brain);
     }
 
+    .btn-food {
+      background: var(--earthy);
+    }
+
     .back-button {
       background: var(--back);
       color: var(--text);
@@ -137,7 +149,7 @@
 
     .energy-button.selected,
     .menu-button.selected {
-      outline: 3px solid rgba(255,255,255,0.35);
+      outline: 3px solid rgba(255, 255, 255, 0.35);
       filter: brightness(0.95);
     }
 
@@ -145,19 +157,19 @@
       width: 100%;
       border-radius: 16px;
       padding: 12px;
-      border: 1px solid #D9D4CD;
+      border: 1px solid #d9d4cd;
       margin-top: 10px;
       box-sizing: border-box;
-      font-family: 'Quicksand', sans-serif;
+      font-family: "Quicksand", sans-serif;
       font-size: 15px;
       color: var(--text);
-      background: #FFFFFF;
+      background: #ffffff;
       resize: vertical;
       min-height: 110px;
     }
 
     .entry {
-      background: #F7F4EF;
+      background: #f7f4ef;
       padding: 14px;
       border-radius: 16px;
       margin-top: 10px;
@@ -171,19 +183,19 @@
     }
 
     .entry-energy {
-      color: #6F655D;
+      color: #6f655d;
       margin-bottom: 6px;
       font-size: 14px;
     }
 
     .suggestion-title {
       font-size: 14px;
-      color: #6F655D;
+      color: #6f655d;
       margin-bottom: 8px;
     }
 
     .suggestion-item {
-      background: #F7F4EF;
+      background: #f7f4ef;
       padding: 14px;
       border-radius: 16px;
       margin-top: 10px;
@@ -204,13 +216,13 @@
     .suggestion-steps {
       margin-top: 10px;
       padding-top: 10px;
-      border-top: 1px solid #DDD4CB;
+      border-top: 1px solid #ddd4cb;
       display: none;
     }
 
     .step {
       margin-top: 6px;
-      color: #6F655D;
+      color: #6f655d;
       font-size: 14px;
       line-height: 1.45;
     }
@@ -225,652 +237,807 @@
 </head>
 
 <body>
-<div class="app">
+  <div class="app">
+    <!-- HOME -->
+    <div id="home">
+      <div class="card">
+        <h1>The Sunny Pond 🐸</h1>
+        <p class="subtitle">a soft, safe little place to land</p>
+        <p class="safe">you’re safe here, you can take this slowly</p>
 
-  <!-- HOME -->
-  <div id="home">
-    <div class="card">
-      <h1>The Sunny Pond 🐸</h1>
-      <p class="subtitle">a soft, safe little place to land</p>
-      <p class="safe">you’re safe here, you can take this slowly</p>
+        <button class="menu-button btn-feeling" onclick="showScreen('reset')">
+          How are you feeling
+        </button>
 
-      <button class="menu-button btn-feeling" onclick="showScreen('reset')">How are you feeling</button>
-      <button class="menu-button btn-dopamine" onclick="showScreen('dopamine')">Dopamine</button>
-      <button class="menu-button btn-brain" onclick="showScreen('brain')">Brain Dump</button>
-      <button class="menu-button btn-journal" onclick="showScreen('journal')">Journal</button>
+        <button class="menu-button btn-dopamine" onclick="showScreen('dopamine')">
+          Dopamine
+        </button>
+
+        <button class="menu-button btn-brain" onclick="showScreen('brain')">
+          Brain Dump
+        </button>
+
+        <button class="menu-button btn-journal" onclick="showScreen('journal')">
+          Journal
+        </button>
+
+        <button class="menu-button btn-food" onclick="showScreen('food')">
+          Food
+        </button>
+      </div>
+
+      <p class="footer">small still counts</p>
     </div>
 
-    <p class="footer">small still counts</p>
-  </div>
+    <!-- HOW ARE YOU FEELING -->
+    <div id="reset" style="display:none;">
+      <button class="menu-button back-button" onclick="showScreen('home')">
+        Back
+      </button>
 
-  <!-- HOW ARE YOU FEELING -->
-  <div id="reset" style="display:none;">
-    <button class="menu-button back-button" onclick="showScreen('home')">Back</button>
+      <div class="card">
+        <h2>How are you feeling</h2>
+        <p class="muted">Energy check</p>
 
-    <div class="card">
-      <h2>How are you feeling</h2>
-      <p class="muted">Energy check</p>
+        <button
+          class="menu-button btn-feeling energy-button"
+          id="energy-low"
+          onclick="setEnergy('Low energy', 'energy-low')"
+        >
+          Low energy
+        </button>
 
-      <button class="menu-button btn-feeling energy-button" id="energy-low" onclick="setEnergy('Low energy', 'energy-low')">Low energy</button>
-      <button class="menu-button btn-dopamine energy-button" id="energy-okay" onclick="setEnergy('Okay', 'energy-okay')">Okay</button>
-      <button class="menu-button btn-feeling energy-button" id="energy-high" onclick="setEnergy('High energy', 'energy-high')">High energy</button>
+        <button
+          class="menu-button btn-dopamine energy-button"
+          id="energy-okay"
+          onclick="setEnergy('Okay', 'energy-okay')"
+        >
+          Okay
+        </button>
+
+        <button
+          class="menu-button btn-feeling energy-button"
+          id="energy-high"
+          onclick="setEnergy('High energy', 'energy-high')"
+        >
+          High energy
+        </button>
+      </div>
+
+      <div class="card">
+        <p class="muted">What did you do for yourself today?</p>
+        <textarea
+          id="selfcare"
+          placeholder="even something small counts..."
+        ></textarea>
+
+        <button class="menu-button btn-feeling" onclick="saveEntry()">
+          Save today
+        </button>
+      </div>
     </div>
 
-    <div class="card">
-      <p class="muted">What did you do for yourself today?</p>
-      <textarea id="selfcare" placeholder="even something small counts..."></textarea>
-      <button class="menu-button btn-feeling" onclick="saveEntry()">Save today</button>
+    <!-- DOPAMINE -->
+    <div id="dopamine" style="display:none;">
+      <button class="menu-button back-button" onclick="showScreen('home')">
+        Back
+      </button>
+
+      <div class="card">
+        <h2>What do you need right now?</h2>
+
+        <button
+          class="menu-button btn-feeling"
+          onclick="showSuggestions('overwhelmed', this)"
+        >
+          Overwhelmed
+        </button>
+
+        <button
+          class="menu-button btn-dopamine"
+          onclick="showSuggestions('low', this)"
+        >
+          Low energy
+        </button>
+
+        <button
+          class="menu-button btn-feeling"
+          onclick="showSuggestions('restless', this)"
+        >
+          Restless
+        </button>
+
+        <button
+          class="menu-button btn-dopamine"
+          onclick="showSuggestions('heavy', this)"
+        >
+          Heavy
+        </button>
+
+        <button
+          class="menu-button btn-feeling"
+          onclick="showSuggestions('reset', this)"
+        >
+          Need a reset
+        </button>
+      </div>
+
+      <div class="card">
+        <div id="suggestions">
+          <p class="suggestion-title">
+            Choose what fits how you feel, and gentle ideas will appear here.
+          </p>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <!-- DOPAMINE -->
-  <div id="dopamine" style="display:none;">
-    <button class="menu-button back-button" onclick="showScreen('home')">Back</button>
+    <!-- BRAIN DUMP -->
+    <div id="brain" style="display:none;">
+      <button class="menu-button back-button" onclick="showScreen('home')">
+        Back
+      </button>
 
-    <div class="card">
-      <h2>What do you need right now?</h2>
+      <div class="card">
+        <h2>Brain Dump</h2>
+        <p class="muted">put the noise here, it doesn’t need to make sense</p>
 
-      <button class="menu-button btn-feeling" onclick="showSuggestions('overwhelmed', this)">Overwhelmed</button>
-      <button class="menu-button btn-dopamine" onclick="showSuggestions('low', this)">Low energy</button>
-      <button class="menu-button btn-feeling" onclick="showSuggestions('restless', this)">Restless</button>
-      <button class="menu-button btn-dopamine" onclick="showSuggestions('heavy', this)">Heavy</button>
-      <button class="menu-button btn-feeling" onclick="showSuggestions('reset', this)">Need a reset</button>
+        <textarea
+          id="braindump-input"
+          placeholder="type anything... messy is okay"
+        ></textarea>
+
+        <button class="menu-button btn-brain" onclick="saveBrainDump()">
+          Save
+        </button>
+      </div>
+
+      <div class="card">
+        <h3>Recent dumps</h3>
+        <div id="brain-list"></div>
+      </div>
     </div>
 
-    <div class="card">
-      <div id="suggestions">
-        <p class="suggestion-title">Choose what fits how you feel, and gentle ideas will appear here.</p>
+    <!-- JOURNAL -->
+    <div id="journal" style="display:none;">
+      <button class="menu-button back-button" onclick="showScreen('home')">
+        Back
+      </button>
+
+      <div class="card">
+        <h2>Journal</h2>
+        <p class="muted">A soft little record of the days you showed up.</p>
+        <div id="entries"></div>
+      </div>
+    </div>
+
+    <!-- FOOD -->
+    <div id="food" style="display:none;">
+      <button class="menu-button back-button" onclick="showScreen('home')">
+        Back
+      </button>
+
+      <div class="card">
+        <h2>Food</h2>
+        <p class="muted">just note what you’ve had, no judgement</p>
+
+        <textarea id="food-breakfast" placeholder="Breakfast..."></textarea>
+        <textarea id="food-dinner" placeholder="Dinner..."></textarea>
+        <textarea id="food-snack1" placeholder="Snack 1..."></textarea>
+        <textarea id="food-tea" placeholder="Tea..."></textarea>
+        <textarea id="food-snack2" placeholder="Snack 2..."></textarea>
+
+        <button class="menu-button btn-food" onclick="saveFood()">
+          Save today
+        </button>
+      </div>
+
+      <div class="card">
+        <h3>Today</h3>
+        <div id="food-today"></div>
       </div>
     </div>
   </div>
 
-  <!-- BRAIN DUMP -->
-  <div id="brain" style="display:none;">
-    <button class="menu-button back-button" onclick="showScreen('home')">Back</button>
+  <script>
+    let selectedEnergy = "";
 
-    <div class="card">
-      <h2>Brain Dump</h2>
-      <p class="muted">put the noise here, it doesn’t need to make sense</p>
+    function showScreen(screen) {
+      document.getElementById("home").style.display = "none";
+      document.getElementById("reset").style.display = "none";
+      document.getElementById("dopamine").style.display = "none";
+      document.getElementById("brain").style.display = "none";
+      document.getElementById("journal").style.display = "none";
+      document.getElementById("food").style.display = "none";
 
-      <textarea id="braindump-input" placeholder="type anything... messy is okay"></textarea>
-      <button class="menu-button btn-brain" onclick="saveBrainDump()">Save</button>
-    </div>
+      document.getElementById(screen).style.display = "block";
 
-    <div class="card">
-      <h3>Recent dumps</h3>
-      <div id="brain-list"></div>
-    </div>
-  </div>
-
-  <!-- JOURNAL -->
-  <div id="journal" style="display:none;">
-    <button class="menu-button back-button" onclick="showScreen('home')">Back</button>
-
-    <div class="card">
-      <h2>Journal</h2>
-      <p class="muted">A soft little record of the days you showed up.</p>
-      <div id="entries"></div>
-    </div>
-  </div>
-
-</div>
-
-<script>
-let selectedEnergy = "";
-
-function showScreen(screen) {
-  document.getElementById("home").style.display = "none";
-  document.getElementById("reset").style.display = "none";
-  document.getElementById("dopamine").style.display = "none";
-  document.getElementById("brain").style.display = "none";
-  document.getElementById("journal").style.display = "none";
-
-  document.getElementById(screen).style.display = "block";
-
-  if (screen === "journal") {
-    displayEntries();
-  }
-
-  if (screen === "brain") {
-    displayBrainDumps();
-  }
-}
-
-function setEnergy(energy, buttonId) {
-  selectedEnergy = energy;
-
-  const buttons = document.querySelectorAll(".energy-button");
-  buttons.forEach(button => button.classList.remove("selected"));
-
-  document.getElementById(buttonId).classList.add("selected");
-}
-
-function saveEntry() {
-  const text = document.getElementById("selfcare").value.trim();
-
-  if (!selectedEnergy && !text) {
-    alert("Add a little note or choose your energy first.");
-    return;
-  }
-
-  const entry = {
-    date: new Date().toLocaleDateString(),
-    energy: selectedEnergy,
-    text: text
-  };
-
-  const entries = JSON.parse(localStorage.getItem("sunnyPondEntries") || "[]");
-  entries.unshift(entry);
-  localStorage.setItem("sunnyPondEntries", JSON.stringify(entries));
-
-  document.getElementById("selfcare").value = "";
-  selectedEnergy = "";
-
-  const buttons = document.querySelectorAll(".energy-button");
-  buttons.forEach(button => button.classList.remove("selected"));
-
-  displayEntries();
-  showScreen("journal");
-}
-
-function displayEntries() {
-  const entries = JSON.parse(localStorage.getItem("sunnyPondEntries") || "[]");
-  const container = document.getElementById("entries");
-  container.innerHTML = "";
-
-  if (entries.length === 0) {
-    container.innerHTML = "<p class='muted'>No entries yet.</p>";
-    return;
-  }
-
-  entries.forEach(entry => {
-    const div = document.createElement("div");
-    div.className = "entry";
-    div.innerHTML = `
-      <div class="entry-date">${entry.date}</div>
-      <div class="entry-energy">${entry.energy ? "Energy: " + entry.energy : ""}</div>
-      <div>${entry.text ? entry.text : ""}</div>
-    `;
-    container.appendChild(div);
-  });
-}
-
-function saveBrainDump() {
-  const text = document.getElementById("braindump-input").value.trim();
-
-  if (!text) {
-    return;
-  }
-
-  const entry = {
-    date: new Date().toLocaleDateString(),
-    text: text
-  };
-
-  const entries = JSON.parse(localStorage.getItem("brainDumps") || "[]");
-  entries.unshift(entry);
-  localStorage.setItem("brainDumps", JSON.stringify(entries));
-
-  document.getElementById("braindump-input").value = "";
-  displayBrainDumps();
-}
-
-function displayBrainDumps() {
-  const entries = JSON.parse(localStorage.getItem("brainDumps") || "[]");
-  const container = document.getElementById("brain-list");
-  container.innerHTML = "";
-
-  if (entries.length === 0) {
-    container.innerHTML = "<p class='muted'>nothing here yet</p>";
-    return;
-  }
-
-  entries.forEach(entry => {
-    const div = document.createElement("div");
-    div.className = "entry";
-    div.innerHTML = `
-      <div class="entry-date">${entry.date}</div>
-      <div>${entry.text}</div>
-    `;
-    container.appendChild(div);
-  });
-}
-
-const suggestionData = {
-  overwhelmed: [
-    {
-      title: "Sit somewhere soft for 2 minutes",
-      steps: [
-        "Go to the nearest soft place you can see.",
-        "Sit down or curl up there.",
-        "Set a timer for 2 minutes if that helps.",
-        "You do not need to solve anything right now."
-      ],
-      note: "The goal is just to soften the moment."
-    },
-    {
-      title: "Make a warm drink",
-      steps: [
-        "Go to the kitchen.",
-        "Pick the easiest drink available.",
-        "Boil the kettle or heat the water.",
-        "Take the drink back somewhere comfortable."
-      ],
-      note: "Warm and easy is enough."
-    },
-    {
-      title: "Open a window",
-      steps: [
-        "Go to the nearest window.",
-        "Unlock it if needed.",
-        "Open it just a little.",
-        "Stand there for one slow breath."
-      ],
-      note: "Fresh air still counts even for 10 seconds."
-    },
-    {
-      title: "Put the noise on the page",
-      steps: [
-        "Open notes or grab paper.",
-        "Write one sentence about what feels loud.",
-        "Write another if you want to.",
-        "Stop as soon as it feels lighter."
-      ],
-      note: "Messy words are welcome here."
-    },
-    {
-      title: "Put on something familiar",
-      steps: [
-        "Choose one familiar song, show, or sound.",
-        "Press play.",
-        "Let it be background comfort.",
-        "You do not have to focus on it."
-      ],
-      note: "Familiar can help your nervous system settle."
-    },
-    {
-      title: "Mindfulness for 2 minutes",
-      steps: [
-        "Sit or lie somewhere comfortable.",
-        "Put one hand on your chest.",
-        "Breathe in slowly.",
-        "Breathe out slowly.",
-        "Repeat for 2 minutes or less."
-      ],
-      note: "Two minutes is enough."
-    },
-    {
-      title: "Remind yourself: I am safe right now",
-      steps: [
-        "Pause where you are.",
-        "Look around the room.",
-        "Name three things you can see.",
-        "Say quietly: I am safe right now."
-      ],
-      note: "Safety first, everything else later."
-    }
-  ],
-
-  low: [
-    {
-      title: "Lie down without guilt",
-      steps: [
-        "Go to the sofa, bed, or softest place nearby.",
-        "Lie down or lean back.",
-        "Pull a blanket over you if you want.",
-        "Stay there for a few minutes without arguing with yourself."
-      ],
-      note: "Rest is allowed."
-    },
-    {
-      title: "Drink some water",
-      steps: [
-        "Get any glass or bottle.",
-        "Fill it or grab what is already there.",
-        "Take one sip.",
-        "Take another if you can."
-      ],
-      note: "One sip still counts."
-    },
-    {
-      title: "Eat something easy",
-      steps: [
-        "Pick the easiest thing available.",
-        "No cooking unless you want to.",
-        "Bring it back somewhere comfy.",
-        "Eat a few bites."
-      ],
-      note: "Easy food is real food."
-    },
-    {
-      title: "Use your heat pack or hot water bottle",
-      steps: [
-        "Get your heat pack or bottle.",
-        "Warm it up safely.",
-        "Put it on the sore or tense area.",
-        "Sit or lie down while it works."
-      ],
-      note: "Let the heat do some of the work."
-    },
-    {
-      title: "Sit near daylight",
-      steps: [
-        "Go near a window or open door.",
-        "Sit or stand there.",
-        "Let yourself look at the light for a minute.",
-        "That is enough."
-      ],
-      note: "You do not need a full walk for this to help."
-    },
-    {
-      title: "Do something easy and familiar",
-      steps: [
-        "Choose a very easy familiar thing.",
-        "Make it something with low effort.",
-        "Let yourself do it without guilt.",
-        "Stop whenever you want."
-      ],
-      note: "Comfort is productive here."
-    },
-    {
-      title: "Mindfulness for 2 minutes",
-      steps: [
-        "Sit or lie somewhere comfortable.",
-        "Put one hand on your chest or stomach.",
-        "Notice one inhale.",
-        "Notice one exhale.",
-        "Stay with that for up to 2 minutes."
-      ],
-      note: "Tiny counts."
-    }
-  ],
-
-  restless: [
-    {
-      title: "Take a short walk",
-      steps: [
-        "Put shoes on if you need to.",
-        "Walk to the end of the street or garden.",
-        "You can come straight back.",
-        "That still counts as a walk."
-      ],
-      note: "Short is enough."
-    },
-    {
-      title: "Put one song on",
-      steps: [
-        "Choose one song only.",
-        "Press play.",
-        "Let your body move if it wants to.",
-        "No need to decide anything after that."
-      ],
-      note: "Just one song keeps it simple."
-    },
-    {
-      title: "Shake out your body",
-      steps: [
-        "Stand up if you can.",
-        "Shake your hands.",
-        "Shake your shoulders.",
-        "Shake one leg, then the other.",
-        "Stop when it feels silly enough."
-      ],
-      note: "We’re just moving the buzz a little."
-    },
-    {
-      title: "Do one gentle stretch",
-      steps: [
-        "Stand or sit comfortably.",
-        "Pick one area that feels tight.",
-        "Stretch gently, not deeply.",
-        "Hold for a few breaths.",
-        "Release."
-      ],
-      note: "Gentle is the goal."
-    },
-    {
-      title: "Do one tiny task only",
-      steps: [
-        "Choose the smallest task you can think of.",
-        "Settle on only one.",
-        "Do just that part.",
-        "Stop after it."
-      ],
-      note: "One tiny task is enough."
-    },
-    {
-      title: "Step outside for a minute",
-      steps: [
-        "Open the door.",
-        "Step outside.",
-        "Stay there for one minute or less.",
-        "Go back in when you want."
-      ],
-      note: "You do not need to go far."
-    },
-    {
-      title: "Mindfulness for 2 minutes",
-      steps: [
-        "Sit down if your body will let you.",
-        "Pick something to look at.",
-        "Breathe in.",
-        "Breathe out.",
-        "Keep bringing your attention back gently."
-      ],
-      note: "Restless still gets to slow down."
-    }
-  ],
-
-  heavy: [
-    {
-      title: "Hand on chest and breathe",
-      steps: [
-        "Place one hand on your chest.",
-        "Feel the weight of your hand there.",
-        "Take one slow breath in.",
-        "Take one slow breath out.",
-        "Repeat a few times."
-      ],
-      note: "You do not have to feel better immediately."
-    },
-    {
-      title: "Comfort yourself gently",
-      steps: [
-        "Sit somewhere safe.",
-        "Wrap up in something soft if you can.",
-        "Talk to yourself kindly.",
-        "Keep it simple: this is hard and I am here."
-      ],
-      note: "You deserve the softness too."
-    },
-    {
-      title: "Curl up somewhere cosy",
-      steps: [
-        "Find the cosiest spot available.",
-        "Bring a blanket or cushion if you want.",
-        "Curl up there.",
-        "Stay as long as feels good."
-      ],
-      note: "Cosy counts as care."
-    },
-    {
-      title: "Play something gentle",
-      steps: [
-        "Choose a familiar easy game.",
-        "Open it.",
-        "Let it hold your attention for a little while.",
-        "No pressure to achieve anything."
-      ],
-      note: "Gentle distraction can still be support."
-    },
-    {
-      title: "Put on a comfort show",
-      steps: [
-        "Pick something familiar.",
-        "Press play.",
-        "Let yourself watch or half-watch.",
-        "That is enough."
-      ],
-      note: "Familiar comfort is valid."
-    },
-    {
-      title: "Write one honest sentence",
-      steps: [
-        "Open notes or get paper.",
-        "Write one true sentence about how it feels.",
-        "Stop there if you want.",
-        "You do not need to explain it all."
-      ],
-      note: "One sentence can be enough."
-    },
-    {
-      title: "Mindfulness for 2 minutes",
-      steps: [
-        "Sit or lie down somewhere comfortable.",
-        "Put one hand where your body feels heavy.",
-        "Breathe slowly.",
-        "Let the feeling be there without fixing it.",
-        "Stay for 2 minutes or less."
-      ],
-      note: "Soft attention is enough."
-    }
-  ],
-
-  reset: [
-    {
-      title: "Take a warm shower",
-      steps: [
-        "Turn the bathroom light on.",
-        "Get a towel.",
-        "Turn the water on.",
-        "Step in for just 2 minutes if that feels easier."
-      ],
-      note: "A short shower still counts."
-    },
-    {
-      title: "Wash your face or brush your teeth",
-      steps: [
-        "Go to the sink.",
-        "Choose one: face or teeth.",
-        "Do just that one thing.",
-        "You do not need to do both."
-      ],
-      note: "One is enough."
-    },
-    {
-      title: "Change into comfy clothes",
-      steps: [
-        "Pick the easiest comfy thing you can see.",
-        "Take off one uncomfortable item.",
-        "Put the comfy thing on.",
-        "Stop there if you want."
-      ],
-      note: "Comfort first."
-    },
-    {
-      title: "Get some sunlight",
-      steps: [
-        "Go to a window, door, or outside spot.",
-        "Stand or sit there.",
-        "Let the light hit your face or arms.",
-        "Stay for a minute."
-      ],
-      note: "You do not need a whole outing."
-    },
-    {
-      title: "Use heat on tense muscles",
-      steps: [
-        "Find your heat pack or hot water bottle.",
-        "Warm it up safely.",
-        "Put it on the tense area.",
-        "Let yourself pause while it helps."
-      ],
-      note: "Your body deserves support too."
-    },
-    {
-      title: "Tidy one tiny thing",
-      steps: [
-        "Look for the smallest possible thing.",
-        "Pick up or put away just one item.",
-        "Stop there.",
-        "Count it."
-      ],
-      note: "One tiny thing still counts."
-    },
-    {
-      title: "Mindfulness for 2 minutes",
-      steps: [
-        "Sit somewhere comfortable.",
-        "Rest your hands somewhere soft.",
-        "Breathe in slowly.",
-        "Breathe out slowly.",
-        "Stay here for 2 minutes or less."
-      ],
-      note: "A tiny reset is still a reset."
-    }
-  ]
-};
-
-function showSuggestions(type, button) {
-  const container = document.getElementById("suggestions");
-
-  const buttons = button.parentElement.querySelectorAll(".menu-button");
-  buttons.forEach(b => b.classList.remove("selected"));
-  button.classList.add("selected");
-
-  const list = suggestionData[type] || [];
-  container.innerHTML = "";
-
-  list.forEach(item => {
-    const div = document.createElement("div");
-    div.className = "suggestion-item";
-
-    const name = document.createElement("div");
-    name.className = "suggestion-name";
-    name.textContent = item.title;
-    div.appendChild(name);
-
-    const steps = document.createElement("div");
-    steps.className = "suggestion-steps";
-
-    item.steps.forEach(stepText => {
-      const step = document.createElement("div");
-      step.className = "step";
-      step.textContent = "• " + stepText;
-      steps.appendChild(step);
-    });
-
-    const note = document.createElement("div");
-    note.className = "step-note";
-    note.textContent = item.note;
-    steps.appendChild(note);
-
-    div.appendChild(steps);
-
-    div.addEventListener("click", function () {
-      const isOpen = steps.style.display === "block";
-
-      document.querySelectorAll(".suggestion-steps").forEach(s => {
-        s.style.display = "none";
-      });
-
-      document.querySelectorAll(".suggestion-item").forEach(i => {
-        i.classList.remove("selected");
-      });
-
-      if (!isOpen) {
-        steps.style.display = "block";
-        div.classList.add("selected");
+      if (screen === "journal") {
+        displayEntries();
       }
-    });
 
-    container.appendChild(div);
-  });
-}
+      if (screen === "brain") {
+        displayBrainDumps();
+      }
 
-displayEntries();
-displayBrainDumps();
-</script>
+      if (screen === "food") {
+        displayFood();
+      }
+    }
 
+    function setEnergy(energy, buttonId) {
+      selectedEnergy = energy;
+
+      const buttons = document.querySelectorAll(".energy-button");
+      buttons.forEach((button) => button.classList.remove("selected"));
+
+      document.getElementById(buttonId).classList.add("selected");
+    }
+
+    function saveEntry() {
+      const text = document.getElementById("selfcare").value.trim();
+
+      if (!selectedEnergy && !text) {
+        alert("Add a little note or choose your energy first.");
+        return;
+      }
+
+      const entry = {
+        date: new Date().toLocaleDateString(),
+        energy: selectedEnergy,
+        text: text,
+      };
+
+      const entries = JSON.parse(
+        localStorage.getItem("sunnyPondEntries") || "[]"
+      );
+      entries.unshift(entry);
+      localStorage.setItem("sunnyPondEntries", JSON.stringify(entries));
+
+      document.getElementById("selfcare").value = "";
+      selectedEnergy = "";
+
+      const buttons = document.querySelectorAll(".energy-button");
+      buttons.forEach((button) => button.classList.remove("selected"));
+
+      displayEntries();
+      showScreen("journal");
+    }
+
+    function displayEntries() {
+      const entries = JSON.parse(
+        localStorage.getItem("sunnyPondEntries") || "[]"
+      );
+      const container = document.getElementById("entries");
+      container.innerHTML = "";
+
+      if (entries.length === 0) {
+        container.innerHTML = "<p class='muted'>No entries yet.</p>";
+        return;
+      }
+
+      entries.forEach((entry) => {
+        const div = document.createElement("div");
+        div.className = "entry";
+        div.innerHTML = `
+          <div class="entry-date">${entry.date}</div>
+          <div class="entry-energy">${entry.energy ? "Energy: " + entry.energy : ""}</div>
+          <div>${entry.text ? entry.text : ""}</div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function saveBrainDump() {
+      const text = document.getElementById("braindump-input").value.trim();
+
+      if (!text) {
+        return;
+      }
+
+      const entry = {
+        date: new Date().toLocaleDateString(),
+        text: text,
+      };
+
+      const entries = JSON.parse(localStorage.getItem("brainDumps") || "[]");
+      entries.unshift(entry);
+      localStorage.setItem("brainDumps", JSON.stringify(entries));
+
+      document.getElementById("braindump-input").value = "";
+      displayBrainDumps();
+    }
+
+    function displayBrainDumps() {
+      const entries = JSON.parse(localStorage.getItem("brainDumps") || "[]");
+      const container = document.getElementById("brain-list");
+      container.innerHTML = "";
+
+      if (entries.length === 0) {
+        container.innerHTML = "<p class='muted'>nothing here yet</p>";
+        return;
+      }
+
+      entries.forEach((entry) => {
+        const div = document.createElement("div");
+        div.className = "entry";
+        div.innerHTML = `
+          <div class="entry-date">${entry.date}</div>
+          <div>${entry.text}</div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function saveFood() {
+      const food = {
+        breakfast: document.getElementById("food-breakfast").value,
+        dinner: document.getElementById("food-dinner").value,
+        snack1: document.getElementById("food-snack1").value,
+        tea: document.getElementById("food-tea").value,
+        snack2: document.getElementById("food-snack2").value,
+        date: new Date().toLocaleDateString(),
+      };
+
+      localStorage.setItem("sunnyFood", JSON.stringify(food));
+      displayFood();
+    }
+
+    function displayFood() {
+      const data = JSON.parse(localStorage.getItem("sunnyFood"));
+      const container = document.getElementById("food-today");
+
+      if (!data) {
+        container.innerHTML = "<p class='muted'>nothing yet</p>";
+        return;
+      }
+
+      container.innerHTML = `
+        <div class="entry">
+          <div class="entry-date">${data.date}</div>
+          <div><strong>Breakfast:</strong> ${data.breakfast || "-"}</div>
+          <div><strong>Dinner:</strong> ${data.dinner || "-"}</div>
+          <div><strong>Snack 1:</strong> ${data.snack1 || "-"}</div>
+          <div><strong>Tea:</strong> ${data.tea || "-"}</div>
+          <div><strong>Snack 2:</strong> ${data.snack2 || "-"}</div>
+        </div>
+      `;
+    }
+
+    const suggestionData = {
+      overwhelmed: [
+        {
+          title: "Sit somewhere soft for 2 minutes",
+          steps: [
+            "Go to the nearest soft place you can see.",
+            "Sit down or curl up there.",
+            "Set a timer for 2 minutes if that helps.",
+            "You do not need to solve anything right now.",
+          ],
+          note: "The goal is just to soften the moment.",
+        },
+        {
+          title: "Make a warm drink",
+          steps: [
+            "Go to the kitchen.",
+            "Pick the easiest drink available.",
+            "Boil the kettle or heat the water.",
+            "Take the drink back somewhere comfortable.",
+          ],
+          note: "Warm and easy is enough.",
+        },
+        {
+          title: "Open a window",
+          steps: [
+            "Go to the nearest window.",
+            "Unlock it if needed.",
+            "Open it just a little.",
+            "Stand there for one slow breath.",
+          ],
+          note: "Fresh air still counts even for 10 seconds.",
+        },
+        {
+          title: "Put the noise on the page",
+          steps: [
+            "Open notes or grab paper.",
+            "Write one sentence about what feels loud.",
+            "Write another if you want to.",
+            "Stop as soon as it feels lighter.",
+          ],
+          note: "Messy words are welcome here.",
+        },
+        {
+          title: "Put on something familiar",
+          steps: [
+            "Choose one familiar song, show, or sound.",
+            "Press play.",
+            "Let it be background comfort.",
+            "You do not have to focus on it.",
+          ],
+          note: "Familiar can help your nervous system settle.",
+        },
+        {
+          title: "Mindfulness for 2 minutes",
+          steps: [
+            "Sit or lie somewhere comfortable.",
+            "Put one hand on your chest.",
+            "Breathe in slowly.",
+            "Breathe out slowly.",
+            "Repeat for 2 minutes or less.",
+          ],
+          note: "Two minutes is enough.",
+        },
+        {
+          title: "Remind yourself: I am safe right now",
+          steps: [
+            "Pause where you are.",
+            "Look around the room.",
+            "Name three things you can see.",
+            "Say quietly: I am safe right now.",
+          ],
+          note: "Safety first, everything else later.",
+        },
+      ],
+
+      low: [
+        {
+          title: "Lie down without guilt",
+          steps: [
+            "Go to the sofa, bed, or softest place nearby.",
+            "Lie down or lean back.",
+            "Pull a blanket over you if you want.",
+            "Stay there for a few minutes without arguing with yourself.",
+          ],
+          note: "Rest is allowed.",
+        },
+        {
+          title: "Drink some water",
+          steps: [
+            "Get any glass or bottle.",
+            "Fill it or grab what is already there.",
+            "Take one sip.",
+            "Take another if you can.",
+          ],
+          note: "One sip still counts.",
+        },
+        {
+          title: "Eat something easy",
+          steps: [
+            "Pick the easiest thing available.",
+            "No cooking unless you want to.",
+            "Bring it back somewhere comfy.",
+            "Eat a few bites.",
+          ],
+          note: "Easy food is real food.",
+        },
+        {
+          title: "Use your heat pack or hot water bottle",
+          steps: [
+            "Get your heat pack or bottle.",
+            "Warm it up safely.",
+            "Put it on the sore or tense area.",
+            "Sit or lie down while it works.",
+          ],
+          note: "Let the heat do some of the work.",
+        },
+        {
+          title: "Sit near daylight",
+          steps: [
+            "Go near a window or open door.",
+            "Sit or stand there.",
+            "Let yourself look at the light for a minute.",
+            "That is enough.",
+          ],
+          note: "You do not need a full walk for this to help.",
+        },
+        {
+          title: "Do something easy and familiar",
+          steps: [
+            "Choose a very easy familiar thing.",
+            "Make it something with low effort.",
+            "Let yourself do it without guilt.",
+            "Stop whenever you want.",
+          ],
+          note: "Comfort is productive here.",
+        },
+        {
+          title: "Mindfulness for 2 minutes",
+          steps: [
+            "Sit or lie somewhere comfortable.",
+            "Put one hand on your chest or stomach.",
+            "Notice one inhale.",
+            "Notice one exhale.",
+            "Stay with that for up to 2 minutes.",
+          ],
+          note: "Tiny counts.",
+        },
+      ],
+
+      restless: [
+        {
+          title: "Take a short walk",
+          steps: [
+            "Put shoes on if you need to.",
+            "Walk to the end of the street or garden.",
+            "You can come straight back.",
+            "That still counts as a walk.",
+          ],
+          note: "Short is enough.",
+        },
+        {
+          title: "Put one song on",
+          steps: [
+            "Choose one song only.",
+            "Press play.",
+            "Let your body move if it wants to.",
+            "No need to decide anything after that.",
+          ],
+          note: "Just one song keeps it simple.",
+        },
+        {
+          title: "Shake out your body",
+          steps: [
+            "Stand up if you can.",
+            "Shake your hands.",
+            "Shake your shoulders.",
+            "Shake one leg, then the other.",
+            "Stop when it feels silly enough.",
+          ],
+          note: "We’re just moving the buzz a little.",
+        },
+        {
+          title: "Do one gentle stretch",
+          steps: [
+            "Stand or sit comfortably.",
+            "Pick one area that feels tight.",
+            "Stretch gently, not deeply.",
+            "Hold for a few breaths.",
+            "Release.",
+          ],
+          note: "Gentle is the goal.",
+        },
+        {
+          title: "Do one tiny task only",
+          steps: [
+            "Choose the smallest task you can think of.",
+            "Settle on only one.",
+            "Do just that part.",
+            "Stop after it.",
+          ],
+          note: "One tiny task is enough.",
+        },
+        {
+          title: "Step outside for a minute",
+          steps: [
+            "Open the door.",
+            "Step outside.",
+            "Stay there for one minute or less.",
+            "Go back in when you want.",
+          ],
+          note: "You do not need to go far.",
+        },
+        {
+          title: "Mindfulness for 2 minutes",
+          steps: [
+            "Sit down if your body will let you.",
+            "Pick something to look at.",
+            "Breathe in.",
+            "Breathe out.",
+            "Keep bringing your attention back gently.",
+          ],
+          note: "Restless still gets to slow down.",
+        },
+      ],
+
+      heavy: [
+        {
+          title: "Hand on chest and breathe",
+          steps: [
+            "Place one hand on your chest.",
+            "Feel the weight of your hand there.",
+            "Take one slow breath in.",
+            "Take one slow breath out.",
+            "Repeat a few times.",
+          ],
+          note: "You do not have to feel better immediately.",
+        },
+        {
+          title: "Comfort yourself gently",
+          steps: [
+            "Sit somewhere safe.",
+            "Wrap up in something soft if you can.",
+            "Talk to yourself kindly.",
+            "Keep it simple: this is hard and I am here.",
+          ],
+          note: "You deserve the softness too.",
+        },
+        {
+          title: "Curl up somewhere cosy",
+          steps: [
+            "Find the cosiest spot available.",
+            "Bring a blanket or cushion if you want.",
+            "Curl up there.",
+            "Stay as long as feels good.",
+          ],
+          note: "Cosy counts as care.",
+        },
+        {
+          title: "Play something gentle",
+          steps: [
+            "Choose a familiar easy game.",
+            "Open it.",
+            "Let it hold your attention for a little while.",
+            "No pressure to achieve anything.",
+          ],
+          note: "Gentle distraction can still be support.",
+        },
+        {
+          title: "Put on a comfort show",
+          steps: [
+            "Pick something familiar.",
+            "Press play.",
+            "Let yourself watch or half-watch.",
+            "That is enough.",
+          ],
+          note: "Familiar comfort is valid.",
+        },
+        {
+          title: "Write one honest sentence",
+          steps: [
+            "Open notes or get paper.",
+            "Write one true sentence about how it feels.",
+            "Stop there if you want.",
+            "You do not need to explain it all.",
+          ],
+          note: "One sentence can be enough.",
+        },
+        {
+          title: "Mindfulness for 2 minutes",
+          steps: [
+            "Sit or lie down somewhere comfortable.",
+            "Put one hand where your body feels heavy.",
+            "Breathe slowly.",
+            "Let the feeling be there without fixing it.",
+            "Stay for 2 minutes or less.",
+          ],
+          note: "Soft attention is enough.",
+        },
+      ],
+
+      reset: [
+        {
+          title: "Take a warm shower",
+          steps: [
+            "Turn the bathroom light on.",
+            "Get a towel.",
+            "Turn the water on.",
+            "Step in for just 2 minutes if that feels easier.",
+          ],
+          note: "A short shower still counts.",
+        },
+        {
+          title: "Wash your face or brush your teeth",
+          steps: [
+            "Go to the sink.",
+            "Choose one: face or teeth.",
+            "Do just that one thing.",
+            "You do not need to do both.",
+          ],
+          note: "One is enough.",
+        },
+        {
+          title: "Change into comfy clothes",
+          steps: [
+            "Pick the easiest comfy thing you can see.",
+            "Take off one uncomfortable item.",
+            "Put the comfy thing on.",
+            "Stop there if you want.",
+          ],
+          note: "Comfort first.",
+        },
+        {
+          title: "Get some sunlight",
+          steps: [
+            "Go to a window, door, or outside spot.",
+            "Stand or sit there.",
+            "Let the light hit your face or arms.",
+            "Stay for a minute.",
+          ],
+          note: "You do not need a whole outing.",
+        },
+        {
+          title: "Use heat on tense muscles",
+          steps: [
+            "Find your heat pack or hot water bottle.",
+            "Warm it up safely.",
+            "Put it on the tense area.",
+            "Let yourself pause while it helps.",
+          ],
+          note: "Your body deserves support too.",
+        },
+        {
+          title: "Tidy one tiny thing",
+          steps: [
+            "Look for the smallest possible thing.",
+            "Pick up or put away just one item.",
+            "Stop there.",
+            "Count it.",
+          ],
+          note: "One tiny thing still counts.",
+        },
+        {
+          title: "Mindfulness for 2 minutes",
+          steps: [
+            "Sit somewhere comfortable.",
+            "Rest your hands somewhere soft.",
+            "Breathe in slowly.",
+            "Breathe out slowly.",
+            "Stay here for 2 minutes or less.",
+          ],
+          note: "A tiny reset is still a reset.",
+        },
+      ],
+    };
+
+    function showSuggestions(type, button) {
+      const container = document.getElementById("suggestions");
+
+      const buttons = button.parentElement.querySelectorAll(".menu-button");
+      buttons.forEach((b) => b.classList.remove("selected"));
+      button.classList.add("selected");
+
+      const list = suggestionData[type] || [];
+      container.innerHTML = "";
+
+      list.forEach((item) => {
+        const div = document.createElement("div");
+        div.className = "suggestion-item";
+
+        const name = document.createElement("div");
+        name.className = "suggestion-name";
+        name.textContent = item.title;
+        div.appendChild(name);
+
+        const steps = document.createElement("div");
+        steps.className = "suggestion-steps";
+
+        item.steps.forEach((stepText) => {
+          const step = document.createElement("div");
+          step.className = "step";
+          step.textContent = "• " + stepText;
+          steps.appendChild(step);
+        });
+
+        const note = document.createElement("div");
+        note.className = "step-note";
+        note.textContent = item.note;
+        steps.appendChild(note);
+
+        div.appendChild(steps);
+
+        div.addEventListener("click", function () {
+          const isOpen = steps.style.display === "block";
+
+          document.querySelectorAll(".suggestion-steps").forEach((s) => {
+            s.style.display = "none";
+          });
+
+          document.querySelectorAll(".suggestion-item").forEach((i) => {
+            i.classList.remove("selected");
+          });
+
+          if (!isOpen) {
+            steps.style.display = "block";
+            div.classList.add("selected");
+          }
+        });
+
+        container.appendChild(div);
+      });
+    }
+
+    displayEntries();
+    displayBrainDumps();
+    displayFood();
+  </script>
 </body>
 </html>
