@@ -59,11 +59,20 @@
       color: white;
       font-size: 16px;
       cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .menu-button:hover {
+      opacity: 0.95;
     }
 
     .back-button {
       background: #ddd;
       color: #333;
+    }
+
+    .energy-button.selected {
+      background: #7F9C78;
     }
 
     textarea {
@@ -72,12 +81,37 @@
       padding: 10px;
       border: 1px solid #ddd;
       margin-top: 10px;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+      font-size: 15px;
     }
 
     .footer {
       text-align: center;
       color: #777;
       font-size: 14px;
+    }
+
+    .entry {
+      background: #FAF8F6;
+      border-radius: 14px;
+      padding: 14px;
+      margin-top: 12px;
+      border: 1px solid #eee;
+    }
+
+    .entry-date {
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .entry-energy {
+      color: #666;
+      margin-bottom: 6px;
+    }
+
+    .save-button {
+      background: #A8BFA3;
     }
   </style>
 </head>
@@ -109,20 +143,28 @@
       <h1>Reset 🌿</h1>
       <p>How are you feeling today?</p>
 
-      <button class="menu-button" onclick="setEnergy('Low energy')">Low energy</button>
-      <button class="menu-button" onclick="setEnergy('Foggy')">Foggy</button>
-      <button class="menu-button" onclick="setEnergy('Okay')">Okay</button>
+      <button class="menu-button energy-button" id="energy-low" onclick="setEnergy('Low energy', 'energy-low')">Low energy</button>
+      <button class="menu-button energy-button" id="energy-foggy" onclick="setEnergy('Foggy', 'energy-foggy')">Foggy</button>
+      <button class="menu-button energy-button" id="energy-okay" onclick="setEnergy('Okay', 'energy-okay')">Okay</button>
     </div>
 
     <div class="card">
       <p>What did you do for yourself today?</p>
-      <textarea id="selfcare"></textarea>
+      <textarea id="selfcare" rows="4" placeholder="Even something small counts…"></textarea>
+      <button class="menu-button save-button" onclick="saveEntry()">Save today 🐸</button>
+    </div>
+
+    <div class="card">
+      <p><strong>Previous entries</strong></p>
+      <div id="entries"></div>
     </div>
   </div>
 
 </div>
 
 <script>
+let selectedEnergy = "";
+
 function showScreen(screen) {
   document.getElementById("home").style.display = "none";
   document.getElementById("reset").style.display = "none";
@@ -130,9 +172,67 @@ function showScreen(screen) {
   document.getElementById(screen).style.display = "block";
 }
 
-function setEnergy(e) {
-  alert("You selected: " + e);
+function setEnergy(energy, buttonId) {
+  selectedEnergy = energy;
+
+  const buttons = document.querySelectorAll(".energy-button");
+  buttons.forEach(button => button.classList.remove("selected"));
+
+  document.getElementById(buttonId).classList.add("selected");
 }
+
+function saveEntry() {
+  const text = document.getElementById("selfcare").value.trim();
+
+  if (!selectedEnergy && !text) {
+    alert("Add a feeling or a little note first 💛");
+    return;
+  }
+
+  const entry = {
+    date: new Date().toLocaleDateString(),
+    energy: selectedEnergy,
+    text: text
+  };
+
+  const entries = JSON.parse(localStorage.getItem("sunnyPondEntries") || "[]");
+  entries.unshift(entry);
+  localStorage.setItem("sunnyPondEntries", JSON.stringify(entries));
+
+  document.getElementById("selfcare").value = "";
+  selectedEnergy = "";
+
+  const buttons = document.querySelectorAll(".energy-button");
+  buttons.forEach(button => button.classList.remove("selected"));
+
+  displayEntries();
+}
+
+function displayEntries() {
+  const entries = JSON.parse(localStorage.getItem("sunnyPondEntries") || "[]");
+  const container = document.getElementById("entries");
+  container.innerHTML = "";
+
+  if (entries.length === 0) {
+    container.innerHTML = "<p style='color:#777;'>No entries yet 🌿</p>";
+    return;
+  }
+
+  entries.forEach(entry => {
+    const div = document.createElement("div");
+    div.className = "entry";
+
+    div.innerHTML = `
+      <div class="entry-date">${entry.date}</div>
+      <div class="entry-energy">${entry.energy ? "Feeling: " + entry.energy : ""}</div>
+      <div>${entry.text ? entry.text : ""}</div>
+    `;
+
+    container.appendChild(div);
+  });
+}
+
+displayEntries();
 </script>
 
 </body>
